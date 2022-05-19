@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function MainDetails() {
+export default function MainDetails({ name, address }) {
   return (
     <>
       {/* your details */}
@@ -12,8 +12,8 @@ export default function MainDetails() {
             placeholder="Enter Your name"
             required
           /> */}
-        <h2 className="text-xl uppercase">Siddharth Tripathi</h2>
-        <p>Your Address </p>
+        <h2 className="font-bold text-xl uppercase md:text-4xl">{name}</h2>
+        <p>{address} </p>
       </section>
       {/* end of your details */}
     </>
