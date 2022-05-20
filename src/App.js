@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import MainDetails from "./components/MainDetails";
 import Notes from "./components/Notes";
 import Table from "./components/Table";
+import TableForm from "./components/TableForm";
 
 function App() {
   const [showInvoice, setShowInvoice] = useState(false);
@@ -24,6 +25,11 @@ function App() {
   const [invoiceDate, setInvoiceDate] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [notes, setNotes] = useState("");
+  const [description, setDescription] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [price, setPrice] = useState("");
+  const [amount, setAmount] = useState("");
+  const [list, setList] = useState([]);
 
   const handlePrint = () => {
     window.print();
@@ -45,7 +51,12 @@ function App() {
               invoiceDate={invoiceDate}
               dueDate={dueDate}
             />
-            <Table />
+            <Table
+              description={description}
+              quantity={quantity}
+              price={price}
+              amount={amount}
+            />
             <Notes notes={notes} />
             <Footer
               name={name}
@@ -232,6 +243,21 @@ function App() {
                   />
                 </div>
               </article>
+
+              {/* This is our table form */}
+              <article>
+                <TableForm
+                  description={description}
+                  setDescription={setDescription}
+                  quantity={quantity}
+                  setQuantity={setQuantity}
+                  price={price}
+                  setPrice={setPrice}
+                  amount={amount}
+                  setAmount={setAmount}
+                />
+              </article>
+
               <label htmlFor="notes">Additional notes</label>
               <textarea
                 name="notes"
