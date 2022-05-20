@@ -56,6 +56,8 @@ function App() {
               quantity={quantity}
               price={price}
               amount={amount}
+              list={list}
+              setList={setList}
             />
             <Notes notes={notes} />
             <Footer
@@ -255,6 +257,8 @@ function App() {
                   setPrice={setPrice}
                   amount={amount}
                   setAmount={setAmount}
+                  list={list}
+                  setList={setList}
                 />
               </article>
 
