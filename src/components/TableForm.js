@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { v4 as uuidv4 } from "uuid";
 
 export default function TableForm({
@@ -13,6 +14,7 @@ export default function TableForm({
   list,
   setList,
 }) {
+  const [isEditing, setIsEditing] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -28,6 +30,7 @@ export default function TableForm({
     setPrice("");
     setAmount("");
     setList([...list, newItems]);
+    setIsEditing(false);
     console.log(list);
   };
   useEffect(() => {
@@ -36,6 +39,24 @@ export default function TableForm({
     };
     calculateAmount(amount);
   }, [amount, price, quantity, setAmount]);
+
+  //Edit Function
+
+  const editRow = (id) => {
+    const editingRow = list.find((row) => row.id === id);
+    setList(list.filter((row) => row.id !== id));
+    setIsEditing(true);
+    setDescription(editingRow.description);
+    setQuantity(editingRow.quantity);
+    setPrice(editingRow.price);
+  };
+
+  // Delete Function
+
+  const deleteRow = (id) => {
+    setList(list.filter((row) => row.id !== id));
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -83,9 +104,9 @@ export default function TableForm({
         </div>
         <button
           type="submit"
-          className="mt-5 bg-blue-500 text-white font-bold py-2 px-8 rounded shadow border-2 border-blue-500 hover:bg-transparent hover:text-blue-500 transition-all duration-300"
+          className="mt-5 mb-5 bg-blue-500 text-white font-bold py-2 px-8 rounded shadow border-2 border-blue-500 hover:bg-transparent hover:text-blue-500 transition-all duration-300"
         >
-          Add Table Item
+          {isEditing ? "Edit Row Item" : "Add Table Item"}
         </button>
       </form>
 
@@ -107,6 +128,16 @@ export default function TableForm({
                 <td>{quantity}</td>
                 <td>{price}</td>
                 <td>{amount}</td>
+                <td>
+                  <button onClick={() => deleteRow(id)}>
+                    <AiOutlineDelete className="text-red-500 font-bold text-xl" />
+                  </button>
+                </td>
+                <td>
+                  <button onClick={() => editRow(id)}>
+                    <AiOutlineEdit className="text-green-500 font-bold text-xl" />
+                  </button>
+                </td>
               </tr>
             </tbody>
           </React.Fragment>
