@@ -30,6 +30,7 @@ function App() {
   const [price, setPrice] = useState("");
   const [amount, setAmount] = useState("");
   const [list, setList] = useState([]);
+  const [total, setTotal] = useState(0);
 
   const handlePrint = () => {
     window.print();
@@ -58,6 +59,8 @@ function App() {
               amount={amount}
               list={list}
               setList={setList}
+              total={total}
+              setTotal={setTotal}
             />
             <Notes notes={notes} />
             <Footer
@@ -259,6 +262,8 @@ function App() {
                   setAmount={setAmount}
                   list={list}
                   setList={setList}
+                  total={total}
+                  setTotal={setTotal}
                 />
               </article>
 

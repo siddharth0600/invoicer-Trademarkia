@@ -13,6 +13,8 @@ export default function TableForm({
   setAmount,
   list,
   setList,
+  total,
+  setTotal,
 }) {
   const [isEditing, setIsEditing] = useState(false);
   const handleSubmit = (e) => {
@@ -33,6 +35,8 @@ export default function TableForm({
     setIsEditing(false);
     console.log(list);
   };
+
+  // Calculate Items Amount section
   useEffect(() => {
     const calculateAmount = (amount) => {
       setAmount(quantity * price);
@@ -40,6 +44,17 @@ export default function TableForm({
     calculateAmount(amount);
   }, [amount, price, quantity, setAmount]);
 
+  //Calculate total amount of items in table
+  useEffect(() => {
+    let rows = document.querySelectorAll(".amount");
+    let sum = 0;
+    for (let i = 0; i < rows.length; i++) {
+      if (rows[i].className === "amount") {
+        sum += isNaN(rows[i].innerHTML) ? 0 : parseInt(rows[i].innerHTML);
+        setTotal(sum);
+      }
+    }
+  });
   //Edit Function
 
   const editRow = (id) => {
@@ -127,7 +142,7 @@ export default function TableForm({
                 <td>{description}</td>
                 <td>{quantity}</td>
                 <td>{price}</td>
-                <td>{amount}</td>
+                <td className="amount">{amount}</td>
                 <td>
                   <button onClick={() => deleteRow(id)}>
                     <AiOutlineDelete className="text-red-500 font-bold text-xl" />
@@ -143,6 +158,11 @@ export default function TableForm({
           </React.Fragment>
         ))}
       </table>
+      <div>
+        <h2 className="flex items-end justify-end text-gray-800 text-4xl font-bold">
+          Rs. {total.toLocaleString()}
+        </h2>
+      </div>
     </>
   );
 }
